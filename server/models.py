@@ -7,6 +7,8 @@ from config import db
 class Customer(db.Model, SerializerMixin):
     __tablename__ = "customers"
 
+    serialize_rules = ('-transactions.customer',)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     email = db.Column(db.String)
@@ -19,6 +21,8 @@ class Customer(db.Model, SerializerMixin):
 class Item(db.Model, SerializerMixin):
     __tablename__ = "items"
 
+    serialize_rules = ('-transactions.item',)
+
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
     cost = db.Column(db.Float)
@@ -29,11 +33,13 @@ class Item(db.Model, SerializerMixin):
 class Transaction(db.Model, SerializerMixin):
     __tablename__ = "transactions"
 
+    serialize_rules = ('-item.transactions', '-customer.transactions',)
+
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime)
 
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
 
-    items = db.relationship('Item', back_populates="transactions")
-    customers = db.relationship('Customer', back_populates="transactions")
+    item = db.relationship('Item', back_populates="transactions")
+    customer = db.relationship('Customer', back_populates="transactions")
