@@ -18,6 +18,29 @@ from models import Customer
 def index():
     return '<h1>Project Server</h1>'
 
+@app.route('/customers', methods=['GET', 'POST'])
+def customers():
+    pass
+
+@app.route('/customers/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def customer_by_id():
+    pass
+
+@app.route('/transactions', methods=['GET', 'POST'])
+def transactions():
+    pass
+
+@app.route('transactions/<int:id>', methods=['GET'])
+def transaction_by_id():
+    pass
+
+@app.route('/inventory', methods=['GET', 'POST'])
+def inventory():
+    pass
+
+@app.route('/inventory/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
+def inventory_by_id():
+    pass
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
