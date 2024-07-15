@@ -10,7 +10,7 @@ from flask_restful import Resource
 from config import app, db, api
 
 # Add your model imports
-from models import Customer
+from models import Customer, Transaction, Item
 
 # Views go here!
 
@@ -102,7 +102,7 @@ def customer_by_id(id):
 
             response_body = {
                 'delete_successful': True,
-                'message': 'Review deleted'
+                'message': 'Customer deleted'
             }
 
             response = make_response(
@@ -142,7 +142,7 @@ def transactions():
         
         response = make_response(
             transaction_dict,
-            200
+            201
         )
 
 @app.route('transactions/<int:id>', methods=['GET'])
@@ -173,11 +173,81 @@ def transaction_by_id(id):
 
 @app.route('/inventory', methods=['GET', 'POST'])
 def inventory():
-    pass
+    if request.method == 'GET':
+        items = []
+        
+        for item in Item.query.all():
+            item_dict = item.to_dict()
+            items.append(item_dict)
 
-@app.route('/inventory/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
-def inventory_by_id():
-    pass
+        response = make_response(
+            items,
+            200
+        )
+
+        return response
+
+    elif request.method == 'POST':
+        new_item = Item(
+            name = request.form.get('name'),
+            cost = request.form.get('cost'),
+            quantity = request.form.get('quantity')
+        )
+
+        db.session.add(new_item)
+        db.session.commit()
+
+        item_dict = new_item.to_dict()
+
+        reponse = make_response(
+            item_dict,
+            201
+        )
+
+        return response
+
+@app.route('/inventory/<int:id>', methods=['GET', 'PATCH'])
+def inventory_by_id(id):
+    item = Item.query.filter(Item.id == id).first()
+
+    if item = None:
+        response_body = {
+            'message': 'This item does not exist in this database. Please try again.'
+        }
+
+        response = make_response(
+            response_body,
+            404
+        )
+
+        return response
+
+    else:
+        if request.method == 'GET'
+            item_dict = item.to_dict()
+    
+            response = make_response(
+                item_dict,
+                200
+            )
+    
+            return response
+        
+        elif request.method == 'PATCH':
+            for attr in request.form:
+                setattr(item, attr, request.form.get(atr))
+
+            db.session.add(item)
+            db.session.commit()
+
+            customer_dict = customer.to_dict()
+
+            response = make_response(
+                customer_dict,
+                200
+            )
+
+            return response
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
