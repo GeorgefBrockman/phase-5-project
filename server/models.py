@@ -1,5 +1,6 @@
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
+from sqlalchemy.orm import validates
 
 from config import db
 
@@ -13,6 +14,18 @@ class Customer(db.Model, SerializerMixin):
     name = db.Column(db.String)
     email = db.Column(db.String)
     number = db.Column(db.String)
+
+    @validates('email')
+    def validate_email(self, key, address):
+        if '@' not in address:
+            raise ValueError("Failed simple email validation")
+        return address
+
+    @validates('number')
+    def validate_number(self, key, phone):
+        if (len(phone) != 10) and (not phone.isnumeric()):
+            raise ValueError("Failed simple number validation")
+        return phone
 
     transactions = db.relationship('Transaction', back_populates='customers')
 
