@@ -41,6 +41,12 @@ class Item(db.Model, SerializerMixin):
     cost = db.Column(db.Float)
     quantity = db.Column(db.Integer)
 
+    @validates('cost', 'quantity')
+    def validate_number(self, key, number):
+        if number < 0:
+            raise ValueError('Failed simple number validation')
+        return number
+
     transactions = db.relationship('Transaction', back_populates='items')
 
 class Transaction(db.Model, SerializerMixin):
