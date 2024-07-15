@@ -19,27 +19,23 @@ from models import Customer, Transaction, Item
 def index():
     return '<h1>Project Server</h1>'
 
-@app.route('/customers', methods=['GET', 'POST'])
-def customers():
+class Customers(Resource):
     
-    if request.method == 'GET':
-        customers = []
-        for customer in Customer.query.all():
-            customer_dict = customer.to_dict()
-            customers.append(customer_dict)
+    def get(self):
+        cust_dict_list = [customer.to_dict() for customer in Customer.query.all()]
 
         response = make_response(
-            customers,
+            cust_dict_list,
             200
         )
 
         return response
 
-    elif request.method == 'POST':
+    def post(self):
         new_customer = Customer(
-            name = request.form.get('name'),
-            email = request.form.get('email'),
-            number = request.form.get('number'),
+            name = request.form['name'],
+            email = request.form['email'],
+            number = request.form['number'],
         )
 
         db.session.add(new_customer)
@@ -54,64 +50,57 @@ def customers():
 
         return response
 
-@app.route('/customers/<int:id>', methods=['GET', 'PATCH', 'DELETE'])
-def customer_by_id(id):
-    customer = Customer.query.filter(Customer.id == id).first()
+api.add_resource(Customers, '/customers')
 
-    if customer == None:
-        response_body = {
-            'message': 'This customer does not exist in our database. Please try again'
-        }
+class CustomerByID(Resource):
+    
+    def get(self, id):
+        customer_dict = Customer.query.filter(Customer.id == id).first().to_dict()
 
         response = make_response(
-            response_body,
-            404
+            customer_dict,
+            200
         )
 
         return response
 
-    else:
-        if request.method == 'GET':
-            customer_dict = customer.to_dict()
+    def patch(self, id):
+        customer = Customer.query.filter(Customer.id == id).first()
+        
+        for attr in request.form:
+            setattr(customer, attr, request.form.get(atr))
 
-            response = make_response(
-                customer_dict,
-                200
-            )
+        db.session.add(customer)
+        db.session.commit()
 
-            return response
+        customer_dict = customer.to_dict()
 
-        elif request.method == 'PATCH':
-            for attr in request.form:
-                setattr(customer, attr, request.form.get(atr))
+        response = make_response(
+            customer_dict,
+            200
+        )
 
-            db.session.add(customer)
-            db.session.commit()
+        return response
 
-            customer_dict = customer.to_dict()
+    def delete(self, id):
+        customer = Customer.query.filter(Customer.id == id).first()
+        
+        db.session.delete(customer)
+        db.session.commit()
 
-            response = make_response(
-                customer_dict,
-                200
-            )
+        response_body = {
+            'delete_successful': True,
+            'message': 'Customer deleted'
+        }
 
-            return response
+        response = make_response(
+            response_body,
+            200
+        )
 
-        elif request.method == 'DELETE':
-            db.session.delete(customer)
-            db.session.commit()
+        return response
 
-            response_body = {
-                'delete_successful': True,
-                'message': 'Customer deleted'
-            }
-
-            response = make_response(
-                response_body,
-                200
-            )
-
-            return response
+api.add_resource(CustomerByID, '/customers/<int:id>')
 
 @app.route('/transactions', methods=['GET', 'POST'])
 def transactions():
