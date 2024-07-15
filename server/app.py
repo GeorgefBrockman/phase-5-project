@@ -114,11 +114,62 @@ def customer_by_id(id):
 
 @app.route('/transactions', methods=['GET', 'POST'])
 def transactions():
-    pass
+    if request.method == 'GET':
+        transactions = []
+        
+        for transaction in Transaction.query.all():
+            transaction_dict = transaction.to_dict()
+            transactions.append(transaction_dict)
+
+        response = make_response(
+            transactions,
+            200
+        )
+
+        return response
+
+    elif request.method == 'POST':
+        new_transaction = Transaction(
+            date = request.form.get('date'),
+            item_id = request.form.get('item_id'),
+            customer_id = request.form.get('customer_id')
+        )
+
+        db.session.add(new_transaction)
+        db.session.commit()
+
+        transaction_dict = new_transaction.to_dict()
+        
+        response = make_response(
+            transaction_dict,
+            200
+        )
 
 @app.route('transactions/<int:id>', methods=['GET'])
-def transaction_by_id():
-    pass
+def transaction_by_id(id):
+    transaction = Transaction.query.filter(Transaction.id == id).first()
+
+    if transaction = None:
+        response_body = {
+            'message': 'This transaction does not exist in this database. Please try again.'
+        }
+
+        response = make_response(
+            response_body,
+            404
+        )
+
+        return response
+
+    else:
+        transaction_dict = transaction.to_dict()
+
+        response = make_response(
+            transaction_dict,
+            200
+        )
+
+        return response
 
 @app.route('/inventory', methods=['GET', 'POST'])
 def inventory():
