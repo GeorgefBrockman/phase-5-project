@@ -14,4 +14,19 @@ if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
+
+        customers = []
+
+        for n in 10:
+            customer = Customer(
+                name = fake.name(), 
+                email = fake.email(), 
+                number = fake.phone_number()
+            )
+
+            customers.append(customer)
+
+        db.session.add_all(customers)
+        db.session.commit()
+
         # Seed code goes here!
