@@ -21,7 +21,7 @@ if __name__ == '__main__':
             customer = Customer(
                 name = fake.name(), 
                 email = fake.email(), 
-                number = fake.phone_number()
+                number = fake.numerify(text = "%#########")
             )
 
             customers.append(customer)
