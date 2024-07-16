@@ -102,15 +102,10 @@ class CustomerByID(Resource):
 
 api.add_resource(CustomerByID, '/customers/<int:id>')
 
-@app.route('/transactions', methods=['GET', 'POST'])
-def transactions():
-    if request.method == 'GET':
-        transactions = []
+class Transactions(Resource):
+    def get(self):
+        transactions = [transaction.to_dict for transaction in Transaction.query.all()]
         
-        for transaction in Transaction.query.all():
-            transaction_dict = transaction.to_dict()
-            transactions.append(transaction_dict)
-
         response = make_response(
             transactions,
             200
@@ -118,40 +113,31 @@ def transactions():
 
         return response
 
-    elif request.method == 'POST':
+    def post(self):
         new_transaction = Transaction(
-            date = request.form.get('date'),
-            item_id = request.form.get('item_id'),
-            customer_id = request.form.get('customer_id')
+            date = request.form['date'],
+            item_id = request.form['item_id'],
+            customer_id = request.form['customer_id'],
         )
 
         db.session.add(new_transaction)
         db.session.commit()
 
         transaction_dict = new_transaction.to_dict()
-        
+
         response = make_response(
             transaction_dict,
             201
         )
 
-@app.route('transactions/<int:id>', methods=['GET'])
-def transaction_by_id(id):
-    transaction = Transaction.query.filter(Transaction.id == id).first()
-
-    if transaction = None:
-        response_body = {
-            'message': 'This transaction does not exist in this database. Please try again.'
-        }
-
-        response = make_response(
-            response_body,
-            404
-        )
-
         return response
 
-    else:
+api.add_resource(Transactions, '/transactions')
+
+class TransactionByID(Resource):
+    def get(self, id):
+        transaction = Transaction.query.filter(Transaction.id == id).first()
+
         transaction_dict = transaction.to_dict()
 
         response = make_response(
@@ -161,14 +147,11 @@ def transaction_by_id(id):
 
         return response
 
-@app.route('/inventory', methods=['GET', 'POST'])
-def inventory():
-    if request.method == 'GET':
-        items = []
-        
-        for item in Item.query.all():
-            item_dict = item.to_dict()
-            items.append(item_dict)
+api.add_resource(TransactionByID, '/transactions/<int:id>')
+
+class Inventory(Resource):
+    def get(self):
+        items = [item.to_dict() for item in Item.query.all()]
 
         response = make_response(
             items,
@@ -177,7 +160,7 @@ def inventory():
 
         return response
 
-    elif request.method == 'POST':
+    def post(self):
         new_item = Item(
             name = request.form.get('name'),
             cost = request.form.get('cost'),
@@ -196,35 +179,25 @@ def inventory():
 
         return response
 
-@app.route('/inventory/<int:id>', methods=['GET', 'PATCH'])
-def inventory_by_id(id):
-    item = Item.query.filter(Item.id == id).first()
+api.add_resource(Inventory, '/inventory')
 
-    if item = None:
-        response_body = {
-            'message': 'This item does not exist in this database. Please try again.'
-        }
+class InventoryByID(Resource):
+    def get(self, id):
+        item = Item.query.filter(Item.id == id).first()
 
+        item_dict = item.to_dict()
+    
         response = make_response(
-            response_body,
-            404
+            item_dict,
+            200
         )
 
         return response
 
-    else:
-        if request.method == 'GET'
-            item_dict = item.to_dict()
-    
-            response = make_response(
-                item_dict,
-                200
-            )
-    
-            return response
-        
-        elif request.method == 'PATCH':
-            for attr in request.form:
+    def patch(self, id):
+        item = Item.query.filter(Item.id == id).first()
+
+        for attr in request.form:
                 setattr(item, attr, request.form.get(atr))
 
             db.session.add(item)
@@ -238,6 +211,8 @@ def inventory_by_id(id):
             )
 
             return response
+
+api.add_resource(InventoryByID, '/inventory/<int:id>')
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):
