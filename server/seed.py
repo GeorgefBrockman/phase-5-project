@@ -29,4 +29,23 @@ if __name__ == '__main__':
         db.session.add_all(customers)
         db.session.commit()
 
+        items = []
+
+        item_names = [
+            'Shoes', 'T-Shirt', 'Jeans', 'Sweatpants', 'Sweatshirt', 'Hat',
+            'Socks', 'Hoodie', 'Jacket', 'Bracelet'
+        ]
+        
+        for item_name in item_names:
+            item = Item(
+                name = item_name,
+                cost = round(random.uniform(5.00, 100.00), 2),
+                quantity = randint(1, 20)
+            )
+
+            items.append(item)
+
+        db.session.add_all(items)
+        db.session.commit()
+
         # Seed code goes here!
