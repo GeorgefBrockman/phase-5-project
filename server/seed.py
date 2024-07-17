@@ -8,7 +8,7 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db
+from models import db, Item, Customer, Transaction
 
 if __name__ == '__main__':
     fake = Faker()
@@ -46,6 +46,23 @@ if __name__ == '__main__':
             items.append(item)
 
         db.session.add_all(items)
+        db.session.commit()
+
+        cust_list = Customer.query.all()
+        item_list = Item.query.all()
+
+        transactions = []
+        
+        for n in 10:
+            transaction = Transaction(
+                date = faker.date.past(),
+                item_id = faker.rc(item_list).id,
+                customer_id = faker.rc(cust_list).id
+            )
+
+            transactions.append(transaction)
+
+        db.session.add_all(transactions)
         db.session.commit()
 
         # Seed code goes here!
