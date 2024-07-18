@@ -1,8 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom"
+import { StoreProvider } from "./components/StoreContext";
+import NavBar from "./components/NavBar"
 
 function App() {
-  return <h1>Project Client</h1>;
+  return (
+    <>
+      <header>
+        <NavBar/>
+      </header>
+      <StoreProvider>
+        <Outlet/>
+      </StoreProvider>
+    </>
+  )
 }
 
 export default App;
