@@ -27,7 +27,7 @@ class Customer(db.Model, SerializerMixin):
             raise ValueError("Failed simple number validation")
         return phone
 
-    transactions = db.relationship('Transaction', back_populates='customers')
+    transactions = db.relationship('Transaction', back_populates='customer')
 
     items = association_proxy('transactions', 'item', creator=lambda item_obj: Transaction(item=item_obj))
 
@@ -47,7 +47,7 @@ class Item(db.Model, SerializerMixin):
             raise ValueError('Failed simple number validation')
         return number
 
-    transactions = db.relationship('Transaction', back_populates='items')
+    transactions = db.relationship('Transaction', back_populates='item')
 
 class Transaction(db.Model, SerializerMixin):
     __tablename__ = "transactions"

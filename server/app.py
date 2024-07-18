@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request
+from flask import request, make_response, jsonify
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound
 
@@ -25,7 +25,7 @@ class Customers(Resource):
         cust_dict_list = [customer.to_dict() for customer in Customer.query.all()]
 
         response = make_response(
-            cust_dict_list,
+            jsonify(cust_dict_list),
             200
         )
 
@@ -44,7 +44,7 @@ class Customers(Resource):
         customer_dict = new_customer.to_dict()
 
         response = make_response(
-            customer_dict,
+            jsonify(customer_dict),
             201
         )
 
@@ -58,7 +58,7 @@ class CustomerByID(Resource):
         customer_dict = Customer.query.filter(Customer.id == id).first().to_dict()
 
         response = make_response(
-            customer_dict,
+            jsonify(customer_dict),
             200
         )
 
@@ -76,7 +76,7 @@ class CustomerByID(Resource):
         customer_dict = customer.to_dict()
 
         response = make_response(
-            customer_dict,
+            jsonify(customer_dict),
             200
         )
 
@@ -94,7 +94,7 @@ class CustomerByID(Resource):
         }
 
         response = make_response(
-            response_body,
+            jsonify(response_body),
             200
         )
 
@@ -104,10 +104,10 @@ api.add_resource(CustomerByID, '/customers/<int:id>')
 
 class Transactions(Resource):
     def get(self):
-        transactions = [transaction.to_dict for transaction in Transaction.query.all()]
+        transactions = [transaction.to_dict() for transaction in Transaction.query.all()]
         
         response = make_response(
-            transactions,
+            jsonify(transactions),
             200
         )
 
@@ -126,7 +126,7 @@ class Transactions(Resource):
         transaction_dict = new_transaction.to_dict()
 
         response = make_response(
-            transaction_dict,
+            jsonify(transaction_dict),
             201
         )
 
@@ -141,7 +141,7 @@ class TransactionByID(Resource):
         transaction_dict = transaction.to_dict()
 
         response = make_response(
-            transaction_dict,
+            jsonify(transaction_dict),
             200
         )
 
@@ -154,7 +154,7 @@ class Inventory(Resource):
         items = [item.to_dict() for item in Item.query.all()]
 
         response = make_response(
-            items,
+            jsonify(items),
             200
         )
 
@@ -173,7 +173,7 @@ class Inventory(Resource):
         item_dict = new_item.to_dict()
 
         reponse = make_response(
-            item_dict,
+            jsonify(item_dict),
             201
         )
 
@@ -188,7 +188,7 @@ class InventoryByID(Resource):
         item_dict = item.to_dict()
     
         response = make_response(
-            item_dict,
+            jsonify(item_dict),
             200
         )
 
@@ -198,7 +198,7 @@ class InventoryByID(Resource):
         item = Item.query.filter(Item.id == id).first()
 
         for attr in request.form:
-                setattr(item, attr, request.form.get(atr))
+            setattr(item, attr, request.form.get(atr))
 
             db.session.add(item)
             db.session.commit()
@@ -206,7 +206,7 @@ class InventoryByID(Resource):
             customer_dict = customer.to_dict()
 
             response = make_response(
-                customer_dict,
+                jsonify(customer_dict),
                 200
             )
 

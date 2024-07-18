@@ -2,6 +2,7 @@
 
 # Standard library imports
 from random import randint, choice as rc
+import random
 
 # Remote library imports
 from faker import Faker
@@ -15,9 +16,13 @@ if __name__ == '__main__':
     with app.app_context():
         print("Starting seed...")
 
+        Customer.query.delete()
+        Item.query.delete()
+        Transaction.query.delete()
+
         customers = []
 
-        for n in 10:
+        for n in range(10):
             customer = Customer(
                 name = fake.name(), 
                 email = fake.email(), 
@@ -53,11 +58,11 @@ if __name__ == '__main__':
 
         transactions = []
         
-        for n in 10:
+        for n in range(10):
             transaction = Transaction(
-                date = faker.date.past(),
-                item_id = faker.rc(item_list).id,
-                customer_id = faker.rc(cust_list).id
+                date = fake.past_date(),
+                item_id = random.choice(item_list).id,
+                customer_id = random.choice(cust_list).id
             )
 
             transactions.append(transaction)
