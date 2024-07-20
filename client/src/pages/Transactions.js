@@ -5,7 +5,9 @@ import Transaction from "../components/Transaction"
 function Transactions(){
     const {transactions} = useContext(StoreContext);
 
-    const transactionList = transactions.map((transaction) => {
+    sortedTransactions = transactions.toSorted((a, b) => a.date - b.date);
+
+    const transactionList = sortedTransactions.map((transaction) => {
         return <Transaction transaction={transaction} key={transaction.id}/>
     })
 
