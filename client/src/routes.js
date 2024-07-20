@@ -2,7 +2,7 @@ import Customers from "./pages/Customers";
 import Home from "./pages/Home";
 import Inventory from "./pages/Inventory";
 import Transactions from "./pages/Transactions";
-import App from "App";
+import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
 
 const routes = [
