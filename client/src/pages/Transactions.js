@@ -6,7 +6,7 @@ function Transactions(){
     const {transactions} = useContext(StoreContext);
 
     const transactionList = transactions.map((transaction) => {
-        return <Transaction transaction={transaction}/>
+        return <Transaction transaction={transaction} key={transaction.id}/>
     })
 
     return(
