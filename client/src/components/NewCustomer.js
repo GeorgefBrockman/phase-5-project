@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { StoreContext } from "./StoreContext";
 
 function NewCustomer(){
     const [refreshPage, setRefreshPage] = useState(false)
-    const {setCustomers} = useState(StoreContext)
+    const {setCustomers} = useContext(StoreContext)
 
     useEffect(() => {
         fetch("/customers")
@@ -15,14 +15,10 @@ function NewCustomer(){
           });
       }, [refreshPage]);
 
-    yup.addMethod(yup.string, 'numerical', () => {
-        return this.matches(/^\d+$/, 'Number should have digits only')
-      })
-
     const formSchema = yup.object().shape({
         name: yup.string().required("Must enter a name"),
         email: yup.string().email("Invalid email").required("Must enter an email"),
-        number: yup.string().numerical().required("Must enter a number").max(10),
+        number: yup.string().matches(/^[0-9]+$/, "Must be only digits").required("Must enter a number").max(10),
     })
 
     const formik = useFormik({
@@ -33,12 +29,12 @@ function NewCustomer(){
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            fetch('/customers', {
+            fetch('customers', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(values, null, 2),
+                body: JSON.stringify(values),
             }).then((r) => {
                 if(r.status == 200){
                     setRefreshPage(!refreshPage);
@@ -48,7 +44,7 @@ function NewCustomer(){
     })
 
     return(
-        <form onSubmit={formik.onSubmit}>
+        <form onSubmit={formik.handleSubmit}>
             <label htmlFor="name">Name</label>
             <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
             <p style={{color: "red"}}>{formik.errors.name}</p>

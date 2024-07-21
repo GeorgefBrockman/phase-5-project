@@ -5,7 +5,7 @@ import Customer from "../components/Customer";
 function Customers(){
     const {customers} = useContext(StoreContext)
 
-    const sortedCustomers = customers.toSorted((a, b) => a.name - b.name);
+    const sortedCustomers = customers.toSorted((a, b) => (a.name > b.name) ? 1 : -1);
 
     const customerList = sortedCustomers.map((customer) => {
         return(
