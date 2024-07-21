@@ -5,7 +5,7 @@ import { StoreContext } from "./StoreContext";
 
 function NewCustomer(){
     const [refreshPage, setRefreshPage] = useState(false)
-    const {customers, setCustomers} = useState(StoreContext)
+    const {setCustomers} = useState(StoreContext)
 
     useEffect(() => {
         fetch("/customers")
@@ -15,7 +15,7 @@ function NewCustomer(){
           });
       }, [refreshPage]);
 
-    yup.addMethod(yup.string, 'numerical', function () {
+    yup.addMethod(yup.string, 'numerical', () => {
         return this.matches(/^\d+$/, 'Number should have digits only')
       })
 
