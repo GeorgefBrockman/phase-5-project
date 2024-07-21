@@ -58,10 +58,16 @@ function NewTransaction(){
     })
 
     return(
-        <></>
+        <form onSubmit={formik.onSubmit}>
+            <label htmlFor="item-id">Item ID</label>
+            <input id="item-id" name="item-id" onChange={formik.handleChange} value={formik.values.item_id}/>
+            <p style={{color: "red"}}>{formik.errors.item_id}</p>
+
+            <label htmlFor="number">Phone Number</label>
+            <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
+            <p style={{color: "red"}}>{formik.errors.number}</p>
+        </form>
     )
 }
-
-
 
 export default NewTransaction
