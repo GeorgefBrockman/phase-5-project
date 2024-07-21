@@ -166,10 +166,12 @@ class Inventory(Resource):
         return response
 
     def post(self):
+        data = request.get_json()
+
         new_item = Item(
-            name = request.form.get('name'),
-            cost = request.form.get('cost'),
-            quantity = request.form.get('quantity')
+            name = data['name'],
+            cost = data['cost'],
+            quantity = data['quantity']
         )
 
         db.session.add(new_item)
@@ -177,7 +179,7 @@ class Inventory(Resource):
 
         item_dict = new_item.to_dict()
 
-        reponse = make_response(
+        response = make_response(
             jsonify(item_dict),
             201
         )

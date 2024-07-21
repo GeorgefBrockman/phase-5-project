@@ -42,7 +42,7 @@ function NewTransaction(){
                 },
                 body: JSON.stringify(newValues),
             }).then(r => {
-                if(r.status == 200){
+                if(r.status == 201){
                     setRefreshPage(!refreshPage)
                 }
             })

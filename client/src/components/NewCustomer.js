@@ -36,7 +36,7 @@ function NewCustomer(){
                 },
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
-                if(r.status == 200){
+                if(r.status == 201){
                     setRefreshPage(!refreshPage);
                 }
             })
