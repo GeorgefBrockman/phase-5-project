@@ -28,9 +28,9 @@ function NewTransaction(){
         validationSchema: formSchema,
         onSubmit: (values) => {
             const customerID = customers.find((customer) => customer.number == values.number).id
+            values.item_id = parseInt(values.item_id)
 
             const newValues = {
-                date: new Date(),
                 item_id: values.item_id,
                 customer_id: customerID
             }

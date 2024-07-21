@@ -6,6 +6,7 @@
 from flask import request, make_response, jsonify
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound
+from datetime import date
 
 # Local imports
 from config import app, db, api
@@ -32,10 +33,12 @@ class Customers(Resource):
         return response
 
     def post(self):
+        data = request.get_json()
+
         new_customer = Customer(
-            name = request.form['name'],
-            email = request.form['email'],
-            number = request.form['number'],
+            name = data['name'],
+            email = data['email'],
+            number = data['number'],
         )
 
         db.session.add(new_customer)
@@ -114,10 +117,12 @@ class Transactions(Resource):
         return response
 
     def post(self):
+        data = request.get_json()
+        
         new_transaction = Transaction(
-            date = request.form['date'],
-            item_id = request.form['item_id'],
-            customer_id = request.form['customer_id'],
+            date = date.today(),
+            item_id = data['item_id'],
+            customer_id = data['customer_id'],
         )
 
         db.session.add(new_transaction)
