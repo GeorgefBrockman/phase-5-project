@@ -3,16 +3,7 @@ import { StoreContext } from "./StoreContext";
 import { useFormik } from "formik";
 
 function NewItem(){
-    const [refreshPage, setRefreshPage] = useState(false)
-    const {setInventory} = useContext(StoreContext)
-
-    useEffect(() => {
-        fetch('/inventory')
-        .then(r => r.json())
-        .then(r => {
-            setInventory(r)
-        })
-    }, [refreshPage])
+    const {setInventory, inventory} = useContext(StoreContext)
 
     const formik = useFormik({
         initialValues: {
@@ -31,9 +22,12 @@ function NewItem(){
                 },
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
-                if(r.status == 201){
-                    setRefreshPage(!refreshPage)
+                if(r.status === 201){
+                    r.json()
                 }
+            }).then(r => {
+                newItems = [...inventory, r];
+                setInventory(newItems)
             })
         }
     })

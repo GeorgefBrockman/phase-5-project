@@ -4,16 +4,7 @@ import * as yup from "yup";
 import { StoreContext } from "./StoreContext";
 
 function NewTransaction(){
-    const [refreshPage, setRefreshPage] = useState(false)
-    const {setTransactions, customers, inventory} = useContext(StoreContext)
-
-    useEffect(() => {
-        fetch("/transactions")
-          .then(r => r.json())
-          .then(r => {
-            setTransactions(r);
-          });
-      }, [refreshPage]);
+    const {setTransactions, customers, transactions} = useContext(StoreContext)
 
     const formSchema = yup.object().shape({
         item_id: yup.string().required("Must enter an item id"),
@@ -27,7 +18,7 @@ function NewTransaction(){
         },
         validationSchema: formSchema,
         onSubmit: (values) => {
-            const customerID = customers.find((customer) => customer.number == values.number).id
+            const customerID = customers.find((customer) => customer.number === values.number).id
             values.item_id = parseInt(values.item_id)
 
             const newValues = {
@@ -42,9 +33,12 @@ function NewTransaction(){
                 },
                 body: JSON.stringify(newValues),
             }).then(r => {
-                if(r.status == 201){
-                    setRefreshPage(!refreshPage)
+                if(r.status === 201){
+                    r.json();
                 }
+            }).then(r => {
+                newTransactions = [...transactions, r];
+                setTransactions(newTransactions)
             })
         }
     })

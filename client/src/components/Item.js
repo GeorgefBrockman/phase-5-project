@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from 'formik';
 import { StoreContext } from "./StoreContext";
 import "./Item.css";
@@ -20,7 +20,7 @@ function Item({item}){
                 },
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
-                if(r.status == 200){
+                if(r.status === 200){
                     fetch("inventory")
                     .then(r => r.json())
                     .then(r =>{

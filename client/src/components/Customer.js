@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { StoreContext } from "./StoreContext";
@@ -28,7 +28,7 @@ function Customer({customer}){
                 },
                 body: JSON.stringify(values, null, 2),
             }).then((r) => {
-                if(r.status == 200){
+                if(r.status === 200){
                     fetch("/customers")
                     .then(r => r.json())
                     .then(r => {
@@ -45,8 +45,8 @@ function Customer({customer}){
         })
         .then(r => r.json())
         .then(r => {
-            if(r.delete_successful == true){
-                const newCustomers = customers.filter((cust) => cust != customer)
+            if(r.delete_successful === true){
+                const newCustomers = customers.filter((cust) => cust !== customer)
                 setCustomers(newCustomers)
             }
         })
