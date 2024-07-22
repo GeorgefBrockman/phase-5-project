@@ -1,12 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import { StoreContext } from "./StoreContext";
 
 function Customer({customer}){
     const {customers, setCustomers} = useContext(StoreContext)
 
-    if(typeof customer == 'undefined') return(<h2>Loading...</h2>);
+    const formSchema = yup.object().shape({
+        name: yup.string().required("Must enter a name"),
+        email: yup.string().email("Invalid email").required("Must enter an email"),
+        number: yup.string().matches(/^[0-9]+$/, "Must be only digits").required("Must enter a number").max(10),
+    })
 
-    function handleDelete(e){
+    const formik = useFormik({
+        initialValues: {
+            name: customer.name,
+            email: customer.email,
+            number: customer.number,
+        },
+        validationSchema: formSchema,
+        onSubmit: (values) => {
+            fetch(`/customers/${customer.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(values, null, 2),
+            }).then((r) => {
+                if(r.status == 200){
+                    fetch("/customers")
+                    .then(r => r.json())
+                    .then(r => {
+                        setCustomers(r);
+                    });
+                }
+            })
+        }
+    })
+
+    function handleDelete(){
         fetch(`/customers/${customer.id}`, {
             method: "DELETE"
         })
@@ -18,6 +50,16 @@ function Customer({customer}){
             }
         })
     }
+
+    function handleEdit(e){
+        if(e.target.nextSibling.hidden){
+            e.target.nextSibling.hidden = false
+        }else{
+            e.target.nextSibling.hidden = true
+        }
+    }
+
+    if(typeof customer == 'undefined') return(<h2>Loading...</h2>);
     
     return(
         <li>
@@ -25,6 +67,23 @@ function Customer({customer}){
             <p style={{gridColumn: 2}}>{customer.email}</p>
             <p style={{gridColumn: 3}}>{customer.number}</p>
             <button onClick={handleDelete}>Delete</button>
+
+            <button onClick={handleEdit}>Edit</button>
+
+            <form onSubmit={formik.handleSubmit} hidden>
+                <label htmlFor="name">Name</label>
+                <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+                <p style={{color: "red"}}>{formik.errors.name}</p>
+
+                <label htmlFor="email">Email Address</label>
+                <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
+                <p style={{color: "red"}}>{formik.errors.email}</p>
+
+                <label htmlFor="number">Phone Number</label>
+                <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
+                <p style={{color: "red"}}>{formik.errors.number}</p>
+                <button type="submit">Submit</button>
+            </form>
         </li>
     )
 }

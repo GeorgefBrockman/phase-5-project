@@ -69,9 +69,11 @@ class CustomerByID(Resource):
 
     def patch(self, id):
         customer = Customer.query.filter(Customer.id == id).first()
+
+        data = request.get_json()
         
-        for attr in request.form:
-            setattr(customer, attr, request.form.get(atr))
+        for attr in data:
+            setattr(customer, attr, data[attr])
 
         db.session.add(customer)
         db.session.commit()
@@ -204,8 +206,10 @@ class InventoryByID(Resource):
     def patch(self, id):
         item = Item.query.filter(Item.id == id).first()
 
-        for attr in request.form:
-            setattr(item, attr, request.form.get(atr))
+        data = request.get_json()
+
+        for attr in data:
+            setattr(item, attr, data[attr])
 
             db.session.add(item)
             db.session.commit()
