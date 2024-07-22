@@ -14,7 +14,7 @@ function Inventory(){
     
     return(
         <ul>
-            <div className="titles">
+            <div className="item-titles">
                 <h3>Item Name:</h3>
                 <h3>Quantity:</h3>
                 <h3>Price:</h3>
