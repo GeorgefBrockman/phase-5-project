@@ -26,7 +26,7 @@ function NewItem(){
                     r.json()
                 }
             }).then(r => {
-                newItems = [...inventory, r];
+                const newItems = [...inventory, r];
                 setInventory(newItems)
             })
         }

@@ -31,7 +31,7 @@ function NewCustomer(){
                     r.json();
                 }
             }).then(r => {
-                newCustomers = [...customers, r];
+                const newCustomers = [...customers, r];
                 setCustomers(newCustomers)
             })
         }

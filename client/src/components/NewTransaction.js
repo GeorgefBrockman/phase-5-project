@@ -37,7 +37,7 @@ function NewTransaction(){
                     r.json();
                 }
             }).then(r => {
-                newTransactions = [...transactions, r];
+                const newTransactions = [...transactions, r];
                 setTransactions(newTransactions)
             })
         }
