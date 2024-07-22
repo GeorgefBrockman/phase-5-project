@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify
+from flask import request, make_response, jsonify, render_template
 from flask_restful import Resource
 from werkzeug.exceptions import NotFound
 from datetime import date
@@ -17,8 +17,9 @@ from models import Customer, Transaction, Item
 # Views go here!
 
 @app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
+@app.route('/<int:id>')
+def index(id=0):
+    return render_template("index.html")
 
 class Customers(Resource):
     
