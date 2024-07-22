@@ -26,11 +26,9 @@ function NewCustomer(){
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(values, null, 2),
-            }).then((r) => {
-                if(r.status === 201){
-                    r.json();
-                }
-            }).then(r => {
+            })
+            .then((r) => r.json())
+            .then(r => {
                 const newCustomers = [...customers, r];
                 setCustomers(newCustomers)
             })

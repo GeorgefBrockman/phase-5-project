@@ -32,11 +32,9 @@ function NewTransaction(){
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(newValues),
-            }).then(r => {
-                if(r.status === 201){
-                    r.json();
-                }
-            }).then(r => {
+            })
+            .then(r => r.json())
+            .then(r => {
                 const newTransactions = [...transactions, r];
                 setTransactions(newTransactions)
             })
