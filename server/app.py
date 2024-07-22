@@ -214,10 +214,10 @@ class InventoryByID(Resource):
             db.session.add(item)
             db.session.commit()
 
-            customer_dict = customer.to_dict()
+            item_dict = item.to_dict()
 
             response = make_response(
-                jsonify(customer_dict),
+                jsonify(item_dict),
                 200
             )
 
