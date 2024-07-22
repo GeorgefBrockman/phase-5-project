@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { StoreContext } from "./StoreContext";
+import "./Customer.css";
 
 function Customer({customer}){
     const {customers, setCustomers} = useContext(StoreContext)
@@ -62,24 +63,27 @@ function Customer({customer}){
     if(typeof customer == 'undefined') return(<h2>Loading...</h2>);
     
     return(
-        <li>
-            <p style={{gridColumn: 1}}>{customer.name}</p>
-            <p style={{gridColumn: 2}}>{customer.email}</p>
-            <p style={{gridColumn: 3}}>{customer.number}</p>
+        <li className="customer">
+            <p>{customer.name}</p>
+            <p>{customer.email}</p>
+            <p>{customer.number}</p>
             <button onClick={handleDelete}>Delete</button>
 
             <button onClick={handleEdit}>Edit</button>
 
-            <form onSubmit={formik.handleSubmit} hidden>
+            <form className="cust-form" onSubmit={formik.handleSubmit} hidden>
                 <label htmlFor="name">Name</label>
+                <br/>
                 <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
                 <p style={{color: "red"}}>{formik.errors.name}</p>
 
                 <label htmlFor="email">Email Address</label>
+                <br/>
                 <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
                 <p style={{color: "red"}}>{formik.errors.email}</p>
 
                 <label htmlFor="number">Phone Number</label>
+                <br/>
                 <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
                 <p style={{color: "red"}}>{formik.errors.number}</p>
                 <button type="submit">Submit</button>

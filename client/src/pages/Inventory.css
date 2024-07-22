@@ -1,0 +1,6 @@
+.titles{
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    width: 102%;
+    margin-left: -3%;
+}

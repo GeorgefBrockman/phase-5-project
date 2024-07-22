@@ -45,15 +45,16 @@ function NewCustomer(){
 
     return(
         <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="name">Name</label>
+            <h2 style={{"text-align": "center"}}>New Customer</h2>
+            <label htmlFor="name">Name: </label>
             <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
             <p style={{color: "red"}}>{formik.errors.name}</p>
 
-            <label htmlFor="email">Email Address</label>
+            <label htmlFor="email">Email Address: </label>
             <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
             <p style={{color: "red"}}>{formik.errors.email}</p>
 
-            <label htmlFor="number">Phone Number</label>
+            <label htmlFor="number">Phone Number: </label>
             <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
             <p style={{color: "red"}}>{formik.errors.number}</p>
             <button type="submit">Submit</button>

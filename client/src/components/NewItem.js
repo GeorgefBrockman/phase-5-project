@@ -40,14 +40,21 @@ function NewItem(){
 
     return(
         <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="name">Name</label>
+            <h2 style={{"text-align": "center"}}>New Item</h2>
+            <label htmlFor="name">Name: </label>
             <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+            <br/>
+            <br/>
 
-            <label htmlFor="quantity">Quantity</label>
+            <label htmlFor="quantity">Quantity: </label>
             <input id="quantity" name="quantity" onChange={formik.handleChange} value={formik.values.quantity}/>
+            <br/>
+            <br/>
 
-            <label htmlFor="cost">Cost</label>
+            <label htmlFor="cost">Cost: </label>
             <input id="cost" name="cost" onChange={formik.handleChange} value={formik.values.cost}/>
+            <br/>
+            <br/>
             <button type="submit">Submit</button>
         </form>
     )

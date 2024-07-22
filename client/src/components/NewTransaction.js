@@ -51,11 +51,12 @@ function NewTransaction(){
 
     return(
         <form onSubmit={formik.handleSubmit}>
-            <label htmlFor="item_id">Item ID</label>
+            <h2 style={{"text-align": "center"}}>New Transaction</h2>
+            <label htmlFor="item_id">Item ID: </label>
             <input id="item_id" name="item_id" onChange={formik.handleChange} value={formik.values.item_id}/>
             <p style={{color: "red"}}>{formik.errors.item_id}</p>
 
-            <label htmlFor="number">Phone Number</label>
+            <label htmlFor="number">Phone Number: </label>
             <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
             <p style={{color: "red"}}>{formik.errors.number}</p>
 

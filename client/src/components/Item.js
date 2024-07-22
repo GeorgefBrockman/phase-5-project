@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useFormik } from 'formik';
 import { StoreContext } from "./StoreContext";
+import "./Item.css";
 
 function Item({item}){
     const {setInventory} = useContext(StoreContext)
@@ -41,7 +42,7 @@ function Item({item}){
     if(typeof item == "undefined") return(<h2>Loading...</h2>);
 
     return(
-        <li>
+        <li className="item">
             <p style={{gridColumn: 1}}>{item.name}</p>
             <div style={{gridColumn: 2}}>
                 <p>{item.quantity}</p>
@@ -51,7 +52,7 @@ function Item({item}){
                     <button type="submit">Submit</button>
                 </form>
             </div>
-            <p style={{gridColumn: 3}}>{item.cost}</p>
+            <p style={{gridColumn: 3}}>{`$${item.cost.toFixed(2)}`}</p>
         </li>
     )
 }
