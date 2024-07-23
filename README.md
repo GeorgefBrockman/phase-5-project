@@ -14,22 +14,54 @@ The latest version of this application can be found at https://github.com/SashaB
 
 #### Home Page:
 
+path: '/'
+
 This is the initial page that a user will come to when they access the web application. On it is the NavBar which contains links to the other pages while remaining visible on all of them. Below the NavBar are the three forms that allow a user to create 
 
 
 #### Customers Page:
 
+path: '/customers'
+
+
 #### Transactions Page:
 
+path: '/transactions'
+
+
 #### Inventory Page:
+
+path: '/inventory'
 
 
 ### Python Flask Backend
 
-#### Models
-
 #### Customer:
+
+path: '/customers' 
+
+Methods: GET and POST
+
+  GET: returns all relevent information for all customers, including name, email, phone number, and a list of transactions
+
+  POST: takes in data and returns a json version of the new customer instance. Required information is the name, email address, and phone number. The email address must have an @ symbol in it while the phone number must be a string 10 characters long.
+
+path: '/customers/<int: id>'
+
+Methods: GET, PATCH, and DELETE
+
+  GET: returns all relevent information for a customer, including name, email, phone number, and a list of transactions
+
+  PATCH: takes in the id from the URL and data form the request and returns a json version of the updated customer instance. The information than can be updated is the name, email address, and phone number. The email address must have an @ symbol in it while the phone number must be a string 10 characters long.
+
+  DELETE: takes in the customer id from the URL, finds the corresponding row in the database, and deletes it. Returns a deletion successful message.
+
 
 #### Transaction:
 
+path: '/transactions' or '/transactions/<int: id>'
+
+
 #### Inventory:
+
+path: '/inventory' or '/inventory/<int: id>'
