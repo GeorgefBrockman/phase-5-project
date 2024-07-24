@@ -59,9 +59,31 @@ Methods: GET, PATCH, and DELETE
 
 #### Transaction:
 
-path: '/transactions' or '/transactions/<int: id>'
+path: '/transactions'
+
+Methods: GET and POST
+
+  GET: returns all relevent information for all transactions, including date, customer informations, and item informations
+
+  POST: takes in data and returns a json version of the new transaction instance. Required information is the customer_id and the item_id.
+
+path: '/transactions/<int: id>'
+
+  GET: returns all relevent information for the specified transaction, including date, customer informations, and item informations
 
 
 #### Inventory:
 
-path: '/inventory' or '/inventory/<int: id>'
+path: '/inventory'
+
+Methods: GET and POST
+
+  GET: returns all relevent information for all items available, including item name, cost, quantity, and associated transactions.
+
+  POST: takes in data and returns a json version of the new item instance. Required information is the item name, cost, and quantity.
+
+path: '/inventory/<int: id>'
+
+  GET: returns all relevent information for the specified item, including item name, cost, quantity, and associated transactions.
+
+  PATCH: takes in the id from the URL and data form the request and returns a json version of the updated item instance. The information than can be updated is the quantity.
