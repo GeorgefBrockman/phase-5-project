@@ -16,22 +16,28 @@ The latest version of this application can be found at https://github.com/SashaB
 
 path: '/'
 
-This is the initial page that a user will come to when they access the web application. On it is the NavBar which contains links to the other pages while remaining visible on all of them. Below the NavBar are the three forms that allow a user to create 
+This is the initial page that a user will come to when they access the web application. On it is the NavBar which contains links to the other pages while remaining visible on all of them. Below the NavBar are the three forms that allow a user to create a new instance of a customer, transaction, and item.
 
 
 #### Customers Page:
 
 path: '/customers'
 
+Displays a table of all customers in the database, showing their name, number, and email address. There are also two buttons with each customer: edit and delete. The edit button allows you to change any of the information that the customer instance has and updates the database with the new data. The delete button removes the customer from both the list and the database.
+
 
 #### Transactions Page:
 
 path: '/transactions'
 
+Displays a table of all transactions in the database, showing the date of the transaction, item name, item cost, customer name, and customer email.
+
 
 #### Inventory Page:
 
 path: '/inventory'
+
+Displays a table of all items in the inventory, showing the name of the item, the cost, and the quantity. The quantity property has a button that allows the user to change the number of items in stock. The item will be updated on the table and in the database.
 
 
 ### Python Flask Backend
