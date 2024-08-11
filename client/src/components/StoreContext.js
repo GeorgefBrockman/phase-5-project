@@ -5,7 +5,8 @@ const StoreContext = createContext();
 function StoreProvider({children}){
     const [inventory, setInventory] = useState([]);
     const [customers, setCustomers] = useState([]);
-    const [transactions, setTransactions] = useState([])
+    const [transactions, setTransactions] = useState([]);
+    const [employees, setEmployees] = useState([]);
 
     const store = {
         inventory: inventory,
@@ -13,7 +14,9 @@ function StoreProvider({children}){
         customers: customers,
         setCustomers: setCustomers,
         transactions: transactions,
-        setTransactions: setTransactions
+        setTransactions: setTransactions,
+        employees: employees,
+        setEmployees: setEmployees
     };
 
     useEffect(() => {
@@ -28,6 +31,10 @@ function StoreProvider({children}){
         fetch('/transactions')
         .then(r => r.json())
         .then(r => setTransactions(r));
+
+        fetch('/employees')
+        .then(r => r.json())
+        .then(r => setEmployees(r));
     }, []);
 
     return(
