@@ -9,16 +9,17 @@ from faker import Faker
 
 # Local imports
 from app import app
-from models import db, Item, Customer, Transaction
+from models import db, Item, Customer, Transaction, Employee
 
 if __name__ == '__main__':
     fake = Faker()
     with app.app_context():
         print("Starting seed...")
 
+        
+        Transaction.query.delete()
         Customer.query.delete()
         Item.query.delete()
-        Transaction.query.delete()
         Employee.query.delete()
 
         customers = []
