@@ -1,6 +1,7 @@
 import Customers from "./pages/Customers";
 import Home from "./pages/Home";
 import Inventory from "./pages/Inventory";
+import Employees from "./pages/Employees";
 import Transactions from "./pages/Transactions";
 import App from "./App";
 import ErrorPage from "./pages/ErrorPage";
@@ -26,6 +27,10 @@ const routes = [
             {
                 path: '/transactions',
                 element: <Transactions/>
+            },
+            {
+                path: '/employees',
+                element: <Employees/>
             }
         ]
     }
