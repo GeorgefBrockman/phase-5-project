@@ -12,7 +12,7 @@ from datetime import date
 from config import app, db, api
 
 # Add your model imports
-from models import Customer, Transaction, Item
+from models import Customer, Transaction, Item, Employee
 
 # Views go here!
 
@@ -225,6 +225,93 @@ class InventoryByID(Resource):
             return response
 
 api.add_resource(InventoryByID, '/inventory/<int:id>')
+
+class Employees(Resource):
+    
+    def get(self):
+        emp_dict_list = [employee.to_dict() for employee in Employee.query.all()]
+
+        response = make_response(
+            jsonify(emp_dict_list),
+            200
+        )
+
+        return response
+
+    def post(self):
+        data = request.get_json()
+
+        new_employee = Employee(
+            name = data['name'],
+            items_sold = 0,
+            value_sold = 0.0,
+        )
+
+        db.session.add(new_employee)
+        db.session.commit()
+
+        employee_dict = new_employee.to_dict()
+
+        response = make_response(
+            jsonify(employee_dict),
+            201
+        )
+
+        return response
+
+api.add_resource(Employees, '/employees')
+
+class EmployeeByID(Resource):
+    
+    def get(self, id):
+        employee_dict = Employee.query.filter(Employee.id == id).first().to_dict()
+
+        response = make_response(
+            jsonify(employee_dict),
+            200
+        )
+
+        return response
+
+    def patch(self, id):
+        employee = Employee.query.filter(Employee.id == id).first()
+
+        data = request.get_json()
+        
+        for attr in data:
+            setattr(employee, attr, data[attr])
+
+        db.session.add(employee)
+        db.session.commit()
+
+        employee_dict = employee.to_dict()
+
+        response = make_response(
+            jsonify(employee_dict),
+            200
+        )
+
+        return response
+
+    def delete(self, id):
+        employee = Employee.query.filter(Employee.id == id).first()
+        
+        db.session.delete(employee)
+        db.session.commit()
+
+        response_body = {
+            'delete_successful': True,
+            'message': 'Employee deleted'
+        }
+
+        response = make_response(
+            jsonify(response_body),
+            200
+        )
+
+        return response
+
+api.add_resource(EmployeeByID, '/employees/<int:id>')
 
 @app.errorhandler(NotFound)
 def handle_not_found(e):

@@ -19,6 +19,7 @@ if __name__ == '__main__':
         Customer.query.delete()
         Item.query.delete()
         Transaction.query.delete()
+        Employee.query.delete()
 
         customers = []
 
@@ -53,8 +54,23 @@ if __name__ == '__main__':
         db.session.add_all(items)
         db.session.commit()
 
+        employees = []
+
+        for n in range(10):
+            employee = Employee(
+                name = fake.name(),
+                items_sold = 0,
+                value_sold = 0.0
+            )
+
+            employees.append(employee)
+
+        db.session.add_all(employees)
+        db.session.commit()
+
         cust_list = Customer.query.all()
         item_list = Item.query.all()
+        emp_list = Employee.query.all()
 
         transactions = []
         
@@ -62,7 +78,8 @@ if __name__ == '__main__':
             transaction = Transaction(
                 date = fake.past_date(),
                 item_id = random.choice(item_list).id,
-                customer_id = random.choice(cust_list).id
+                customer_id = random.choice(cust_list).id,
+                employee_id = random.choice(emp_list).id
             )
 
             transactions.append(transaction)

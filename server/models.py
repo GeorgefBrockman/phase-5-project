@@ -59,6 +59,20 @@ class Transaction(db.Model, SerializerMixin):
 
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
+    employee_id = db.Column(db.Integer, db.ForeignKey('employees.id'))
 
     item = db.relationship('Item', back_populates="transactions")
     customer = db.relationship('Customer', back_populates="transactions")
+    employee = db.relationship('Employee', back_populates="transactions")
+
+class Employee(db.Model, SerializerMixin):
+    __tablename__ = 'employees'
+
+    serialize_rules = ('-transactions.employee',)
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    items_sold = db.Column(db.Integer)
+    value_sold = db.Column(db.Float)
+
+    transactions = db.relationship('Transaction', back_populates='employee')
