@@ -279,8 +279,7 @@ class EmployeeByID(Resource):
 
         data = request.get_json()
         
-        for attr in data:
-            setattr(employee, attr, data[attr])
+        employee.value_sold += data.value_sold
 
         db.session.add(employee)
         db.session.commit()
