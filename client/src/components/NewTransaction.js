@@ -4,7 +4,7 @@ import * as yup from "yup";
 import { StoreContext } from "./StoreContext";
 
 function NewTransaction(){
-    const {setTransactions, customers, transactions, employees, setEmployees, inventory} = useContext(StoreContext)
+    const {setTransactions, customers, transactions, setEmployees, inventory} = useContext(StoreContext)
 
     const formSchema = yup.object().shape({
         item_id: yup.string().required("Must enter an item id"),
