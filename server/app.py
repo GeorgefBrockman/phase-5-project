@@ -126,6 +126,7 @@ class Transactions(Resource):
             date = date.today(),
             item_id = data['item_id'],
             customer_id = data['customer_id'],
+            employee_id = data['employee_id']
         )
 
         db.session.add(new_transaction)
