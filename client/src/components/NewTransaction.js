@@ -70,20 +70,20 @@ function NewTransaction(){
             <div className="flex flex-row p-1 w-full flex-initial">
                 <label className="pr-1" htmlFor="item_id">Item ID: </label>
                 <input id="item_id" name="item_id" onChange={formik.handleChange} value={formik.values.item_id}/>
-                <p className="px-1 text-red-700">{formik.errors.item_id}</p>
             </div>
+            <p className="px-1 text-red-700">{formik.errors.item_id}</p>
 
             <div className="flex flex-row p-1">
                 <label className="pr-1" htmlFor="number">Customer Phone: </label>
                 <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
-                <p className="px-1 text-red-700">{formik.errors.number}</p>
             </div>
+            <p className="px-1 text-red-700">{formik.errors.number}</p>
 
             <div className="flex flex-row p-1">
                 <label className="pr-1" htmlFor="employee_id">Employee ID: </label>
                 <input id="employee_id" name="employee_id" onChange={formik.handleChange} value={(formik.values.employee_id)}/>
-                <p className="px-1 text-red-700">{formik.errors.employee_id}</p>
             </div>
+            <p className="px-1 text-red-700">{formik.errors.employee_id}</p>
 
             <button className="px-5 bg-white w-52 mt-2 ml-1" type="submit">Submit</button>
         </form>
