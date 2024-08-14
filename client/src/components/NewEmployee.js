@@ -40,7 +40,7 @@ function NewEmployee(){
                 <label className="pr-1" htmlFor="name">Name: </label>
                 <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
             </div>
-            <p style={{color: "red"}}>{formik.errors.name}</p>
+            <p className="px-1 text-red-700">{formik.errors.name}</p>
             <button className="px-5 bg-white w-52 mt-2 ml-1" type="submit">Submit</button>
         </form>
     )
