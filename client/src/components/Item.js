@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { useFormik } from 'formik';
 import { StoreContext } from "./StoreContext";
-import "./Item.css";
 
 function Item({item}){
     const {setInventory} = useContext(StoreContext)
@@ -42,17 +41,18 @@ function Item({item}){
     if(typeof item == "undefined") return(<h2>Loading...</h2>);
 
     return(
-        <li className="item">
-            <p style={{gridColumn: 1}}>{item.name}</p>
-            <div style={{gridColumn: 2}}>
+        <li className="grid grid-cols-4 w-full p-2">
+            <p className="px-0.5">{item.id}</p>
+            <p className="px-0.5">{item.name}</p>
+            <div className="px-0.5">
                 <p>{item.quantity}</p>
-                <button onClick={handleEdit}>Edit</button>
-                <form onSubmit={formik.handleSubmit} hidden>
+                <button className="bg-white mx-1 w-20" onClick={handleEdit}>Edit</button>
+                <form className="py-0.5" onSubmit={formik.handleSubmit} hidden>
                     <input id="quantity" name="quantity" onChange={formik.handleChange} value={formik.values.quantity}/>
-                    <button type="submit">Submit</button>
+                    <button className="bg-white mx-1" type="submit">Submit</button>
                 </form>
             </div>
-            <p style={{gridColumn: 3}}>{`$${item.cost.toFixed(2)}`}</p>
+            <p className="px-0.5">{`$${item.cost.toFixed(2)}`}</p>
         </li>
     )
 }

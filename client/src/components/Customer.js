@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { StoreContext } from "./StoreContext";
-import "./Customer.css";
 
 function Customer({customer}){
     const {customers, setCustomers} = useContext(StoreContext)
@@ -63,13 +62,13 @@ function Customer({customer}){
     if(typeof customer == 'undefined') return(<h2>Loading...</h2>);
     
     return(
-        <li className="customer">
-            <p>{customer.name}</p>
-            <p>{customer.email}</p>
-            <p>{customer.number}</p>
-            <button onClick={handleDelete}>Delete</button>
+        <li className="grid grid-cols-7 w-full p-2">
+            <p className="col-span-2 px-0.5">{customer.name}</p>
+            <p className="text-ellipsis overflow-hidden col-span-2 px-0.5">{customer.email}</p>
+            <p className="px-0.5">{customer.number}</p>
+            <button className="bg-white mx-1" onClick={handleDelete}>Delete</button>
 
-            <button onClick={handleEdit}>Edit</button>
+            <button className="bg-white mx-1" onClick={handleEdit}>Edit</button>
 
             <form className="cust-form" onSubmit={formik.handleSubmit} hidden>
                 <label htmlFor="name">Name</label>

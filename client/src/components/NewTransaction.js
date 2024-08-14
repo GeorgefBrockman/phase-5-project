@@ -63,21 +63,27 @@ function NewTransaction(){
     })
 
     return(
-        <form onSubmit={formik.handleSubmit}>
-            <h2 style={{"text-align": "center"}}>New Transaction</h2>
-            <label htmlFor="item_id">Item ID: </label>
-            <input id="item_id" name="item_id" onChange={formik.handleChange} value={formik.values.item_id}/>
-            <p style={{color: "red"}}>{formik.errors.item_id}</p>
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+            <h2 className="text-center">New Transaction</h2>
+            <div className="flex flex-row p-1 w-full flex-initial">
+                <label className="pr-1" htmlFor="item_id">Item ID: </label>
+                <input id="item_id" name="item_id" onChange={formik.handleChange} value={formik.values.item_id}/>
+                <p className="px-1 text-red-700">{formik.errors.item_id}</p>
+            </div>
 
-            <label htmlFor="number">Customer Phone: </label>
-            <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
-            <p style={{color: "red"}}>{formik.errors.number}</p>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="number">Customer Phone: </label>
+                <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
+                <p className="px-1 text-red-700">{formik.errors.number}</p>
+            </div>
 
-            <label htmlFor="employee_id">Employee ID: </label>
-            <input id="employee_id" name="employee_id" onChange={formik.handleChange} value={(formik.values.employee_id)}/>
-            <p style={{color: "red"}}>{formik.errors.employee_id}</p>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="employee_id">Employee ID: </label>
+                <input id="employee_id" name="employee_id" onChange={formik.handleChange} value={(formik.values.employee_id)}/>
+                <p className="px-1 text-red-700">{formik.errors.employee_id}</p>
+            </div>
 
-            <button type="submit">Submit</button>
+            <button className="px-5 bg-white w-52 mt-2 ml-1" type="submit">Submit</button>
         </form>
     )
 }

@@ -31,23 +31,24 @@ function NewItem(){
     })
 
     return(
-        <form onSubmit={formik.handleSubmit}>
-            <h2 style={{"text-align": "center"}}>New Item</h2>
-            <label htmlFor="name">Name: </label>
-            <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
-            <br/>
-            <br/>
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+            <h2 className="text-center">New Item</h2>
+            <div className="flex flex-row p-1 w-full flex-initial">
+                <label className="pr-1" htmlFor="name">Name: </label>
+                <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+            </div>
 
-            <label htmlFor="quantity">Quantity: </label>
-            <input id="quantity" name="quantity" onChange={formik.handleChange} value={formik.values.quantity}/>
-            <br/>
-            <br/>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="quantity">Quantity: </label>
+                <input id="quantity" name="quantity" onChange={formik.handleChange} value={formik.values.quantity}/>
+            </div>
 
-            <label htmlFor="cost">Cost: </label>
-            <input id="cost" name="cost" onChange={formik.handleChange} value={formik.values.cost}/>
-            <br/>
-            <br/>
-            <button type="submit">Submit</button>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="cost">Cost: </label>
+                <input id="cost" name="cost" onChange={formik.handleChange} value={formik.values.cost}/>
+            </div>
+
+            <button className="px-5 bg-white w-52 mt-2 ml-1" type="submit">Submit</button>
         </form>
     )
 }

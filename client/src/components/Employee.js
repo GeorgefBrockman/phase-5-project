@@ -20,12 +20,12 @@ function Employee({employee}){
     if(typeof employee == 'undefined') return(<h2>Loading...</h2>);
 
     return(
-        <li>
-            <p>{employee.id}</p>
-            <p>{employee.name}</p>
-            <p>{employee.items_sold}</p>
-            <p>{employee.value_sold}</p>
-            <button onClick={handleDelete}>Delete</button>
+        <li className="grid grid-cols-5 w-full p-2">
+            <p className="px-0.5">{employee.id}</p>
+            <p className="px-0.5">{employee.name}</p>
+            <p className="px-0.5">{employee.items_sold}</p>
+            <p className="px-0.5">{`$${employee.value_sold.toFixed(2)}`}</p>
+            <button className="bg-white mx-1" onClick={handleDelete}>Delete</button>
         </li>
     )
 }

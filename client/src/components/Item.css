@@ -1,7 +1,0 @@
-.item{
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
-    background-color: #949494;
-    width: 102%;
-    margin-left: -3%;
-}

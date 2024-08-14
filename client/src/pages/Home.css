@@ -1,8 +1,0 @@
-.forms{
-    margin-top: 5%;
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
-    background-color: #949494;
-    width: 90%;
-    margin-left: 5%;
-}

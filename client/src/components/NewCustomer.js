@@ -36,20 +36,26 @@ function NewCustomer(){
     })
 
     return(
-        <form onSubmit={formik.handleSubmit}>
-            <h2 style={{"text-align": "center"}}>New Customer</h2>
-            <label htmlFor="name">Name: </label>
-            <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
-            <p style={{color: "red"}}>{formik.errors.name}</p>
+        <form className="flex flex-col" onSubmit={formik.handleSubmit}>
+            <h2 className="text-center">New Customer</h2>
+            <div className="flex flex-row p-1 w-full flex-initial">
+                <label className="pr-1" htmlFor="name">Name: </label>
+                <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+            </div>
+            <p className="px-1 text-red-700">{formik.errors.name}</p>
 
-            <label htmlFor="email">Email Address: </label>
-            <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
-            <p style={{color: "red"}}>{formik.errors.email}</p>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="email">Email Address: </label>
+                <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
+            </div>
+            <p className="px-1 text-red-700">{formik.errors.email}</p>
 
-            <label htmlFor="number">Phone Number: </label>
-            <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
-            <p style={{color: "red"}}>{formik.errors.number}</p>
-            <button type="submit">Submit</button>
+            <div className="flex flex-row p-1">
+                <label className="pr-1" htmlFor="number">Phone Number: </label>
+                <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
+            </div>
+            <p className="px-1 text-red-700">{formik.errors.number}</p>
+            <button className="px-5 bg-white w-52 mt-2 ml-1" type="submit">Submit</button>
         </form>
     )
 }
