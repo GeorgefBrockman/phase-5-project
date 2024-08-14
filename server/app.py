@@ -276,10 +276,12 @@ class EmployeeByID(Resource):
 
     def patch(self, id):
         employee = Employee.query.filter(Employee.id == id).first()
+        print(employee)
 
         data = request.get_json()
+        print(data)
         
-        employee.value_sold += data.value_sold
+        employee.value_sold += data["value_sold"]
 
         db.session.add(employee)
         db.session.commit()

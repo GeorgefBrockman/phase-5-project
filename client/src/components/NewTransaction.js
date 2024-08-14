@@ -22,12 +22,12 @@ function NewTransaction(){
         onSubmit: (values) => {
             const customerID = customers.find((customer) => customer.number === values.number).id
             values.item_id = parseInt(values.item_id)
-            values.employee_id = parseInt(values.employee_id)
             const value = inventory.find((item) => item.id === values.item_id).cost
 
             const newValues = {
                 item_id: values.item_id,
-                customer_id: customerID
+                customer_id: customerID,
+                employee_id: values.employee_id
             }
 
             fetch('/transactions', {
