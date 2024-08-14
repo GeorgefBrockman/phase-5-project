@@ -15,7 +15,7 @@ function NewEmployee(){
             name: '',
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, {resetForm}) => {
             fetch('employees', {
                 method: 'POST',
                 headers:{
@@ -28,6 +28,8 @@ function NewEmployee(){
                 const newEmployees = [...employees, r];
                 setEmployees(newEmployees)
             })
+
+            resetForm()
         }
     })
 

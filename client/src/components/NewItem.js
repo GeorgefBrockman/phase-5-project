@@ -11,7 +11,7 @@ function NewItem(){
             quantity: "",
             cost: "",
         },
-        onSubmit: (values) => {
+        onSubmit: (values, {resetForm}) => {
             values.quantity = parseInt(values.quantity)
             values.cost = parseFloat(values.cost)
 
@@ -27,6 +27,8 @@ function NewItem(){
                 const newItems = [...inventory, r];
                 setInventory(newItems)
             })
+
+            resetForm()
         }
     })
 

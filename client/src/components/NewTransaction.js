@@ -19,7 +19,7 @@ function NewTransaction(){
             employee_id: "",
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, {resetForm}) => {
             const customerID = customers.find((customer) => customer.number === values.number).id
             values.item_id = parseInt(values.item_id)
             const value = inventory.find((item) => item.id === values.item_id).cost
@@ -59,6 +59,8 @@ function NewTransaction(){
                     })
                 }
             })
+
+            resetForm()
         }
     })
 

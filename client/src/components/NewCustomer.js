@@ -19,7 +19,7 @@ function NewCustomer(){
             number: "",
         },
         validationSchema: formSchema,
-        onSubmit: (values) => {
+        onSubmit: (values, {resetForm}) => {
             fetch('customers', {
                 method: 'POST',
                 headers: {
@@ -32,6 +32,8 @@ function NewCustomer(){
                 const newCustomers = [...customers, r];
                 setCustomers(newCustomers)
             })
+
+            resetForm()
         }
     })
 
