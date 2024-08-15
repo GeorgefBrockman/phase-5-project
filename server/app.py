@@ -121,6 +121,12 @@ class Transactions(Resource):
 
     def post(self):
         data = request.get_json()
+
+        employee = Employee.query.filter(Employee.id == data['employee_id']).first()
+        item = Item.query.filter(Item.id == data['item_id']).first()
+
+        employee.items_sold += 1
+        item.quantity -= 1
         
         new_transaction = Transaction(
             date = date.today(),
