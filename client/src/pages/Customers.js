@@ -16,7 +16,7 @@ function Customers(){
     return(
         <div className="flex justify-center p-2">
             <ul className="w-full bg-[#949494]">
-                <div className="grid grid-cols-7 w-full p-2">
+                <div className="grid grid-cols-7 w-full p-2 bg-[#828282]">
                     <h3 className="col-span-2">Name:</h3>
                     <h3 className="col-span-2">Email:</h3>
                     <h3>Number:</h3>

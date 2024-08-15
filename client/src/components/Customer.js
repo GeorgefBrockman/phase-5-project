@@ -69,24 +69,26 @@ function Customer({customer}){
             <button className="bg-white mx-1" onClick={handleDelete}>Delete</button>
 
             <button className="bg-white mx-1" onClick={handleEdit}>Edit</button>
+            
+            <div className="col-span-7" hidden>
+                <form className="grid grid-cols-7 w-full p-0.5" onSubmit={formik.handleSubmit} hidden>
+                    <div className="col-span-2">
+                        <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+                        <p className="px-1 text-red-700">{formik.errors.name}</p>
+                    </div>
 
-            <form className="cust-form" onSubmit={formik.handleSubmit} hidden>
-                <label htmlFor="name">Name</label>
-                <br/>
-                <input id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
-                <p style={{color: "red"}}>{formik.errors.name}</p>
+                    <div className="col-span-2 p-0.5">
+                        <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
+                        <p className="px-1 text-red-700">{formik.errors.email}</p>
+                    </div>
 
-                <label htmlFor="email">Email Address</label>
-                <br/>
-                <input id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
-                <p style={{color: "red"}}>{formik.errors.email}</p>
-
-                <label htmlFor="number">Phone Number</label>
-                <br/>
-                <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
-                <p style={{color: "red"}}>{formik.errors.number}</p>
-                <button type="submit">Submit</button>
-            </form>
+                    <div>
+                        <input id="number" name="number" onChange={formik.handleChange} value={formik.values.number}/>
+                        <p className="px-1 text-red-700">{formik.errors.number}</p>
+                    </div>
+                    <button className="col-start-7 m-1 bg-white" type="submit">Submit</button>
+                </form>
+            </div>
         </li>
     )
 }
