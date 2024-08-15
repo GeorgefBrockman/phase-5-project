@@ -5,7 +5,7 @@ import Item from "../components/Item"
 function Inventory(){
     const {inventory} = useContext(StoreContext)
 
-    const sortedInventory = inventory.toSorted((a, b) => a.name - b.name);
+    const sortedInventory = inventory.toSorted((a, b) => a.id - b.id);
 
     const inventoryList = sortedInventory.map((item) => {
         return(<Item item={item} key={item.id}/>)
